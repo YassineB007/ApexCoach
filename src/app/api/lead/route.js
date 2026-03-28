@@ -1,4 +1,3 @@
-import { readLeadSmtpEnv } from "@/lib/email/smtpEnv";
 import { sendLeadNotification } from "@/lib/email/sendLeadNotification";
 
 /** Nodemailer + Gmail SMTP require Node (not Edge). */
@@ -8,6 +7,36 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_LEN = 4000;
+
+/** Gmail app passwords may include spaces; strip them. */
+function normalizeAppPassword(raw) {
+  return String(raw ?? "")
+    .replace(/^\uFEFF/, "")
+    .replace(/\s+/g, "");
+}
+
+/**
+ * Read SMTP env at request time inside this file (reliable on Vercel; avoids some bundlers
+ * stripping `process.env` from shared modules). Use bracket access for the same reason.
+ *
+ * Supported keys (first match wins):
+ * - user: GMAIL_USER, SMTP_USER
+ * - pass: GMAIL_APP_PASSWORD, SMTP_PASS, SMTP_PASSWORD
+ * - to: LEAD_NOTIFY_EMAIL (else same as user)
+ */
+function readLeadSmtpEnv() {
+  const user =
+    String(process.env["GMAIL_USER"] ?? process.env["SMTP_USER"] ?? "")
+      .trim() || "";
+  const pass = normalizeAppPassword(
+    process.env["GMAIL_APP_PASSWORD"] ??
+      process.env["SMTP_PASS"] ??
+      process.env["SMTP_PASSWORD"],
+  );
+  const to =
+    String(process.env["LEAD_NOTIFY_EMAIL"] ?? "").trim() || user || "";
+  return { user, pass, to };
+}
 
 function badRequest(message) {
   return Response.json({ ok: false, error: message }, { status: 400 });
@@ -43,10 +72,27 @@ export async function POST(request) {
 
   const smtp = readLeadSmtpEnv();
   if (!smtp.user || !smtp.pass) {
-    console.error("[api/lead] Missing SMTP env (check Vercel names + redeploy)", {
-      hasGMAIL_USER: Boolean(smtp.user),
-      hasGMAIL_APP_PASSWORD: Boolean(smtp.pass),
+    const isDev = process.env["NODE_ENV"] === "development";
+    console.error("[api/lead] SMTP env missing", {
+      hasUser: Boolean(smtp.user),
+      hasPass: Boolean(smtp.pass),
+      checkedKeys: {
+        GMAIL_USER: Boolean(process.env["GMAIL_USER"]),
+        GMAIL_APP_PASSWORD: Boolean(process.env["GMAIL_APP_PASSWORD"]),
+        SMTP_USER: Boolean(process.env["SMTP_USER"]),
+        SMTP_PASS: Boolean(process.env["SMTP_PASS"]),
+      },
     });
+    return Response.json(
+      {
+        ok: false,
+        error: "Email is not configured on the server.",
+        hint: isDev
+          ? "Create .env.local with GMAIL_USER and GMAIL_APP_PASSWORD (see .env.example), then stop and run `npm run dev` again."
+          : "In Vercel: Project → Settings → Environment Variables — add GMAIL_USER and GMAIL_APP_PASSWORD for Production (and Preview if needed). Names must match exactly. Then Deployments → Redeploy.",
+      },
+      { status: 503 },
+    );
   }
 
   try {
@@ -66,7 +112,7 @@ export async function POST(request) {
       {
         ok: false,
         error: "Could not send email. Try again later.",
-        ...(process.env.NODE_ENV === "development"
+        ...(process.env["NODE_ENV"] === "development"
           ? { debug: msg.slice(0, 200), code: code || undefined }
           : {}),
       },
