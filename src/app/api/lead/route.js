@@ -1,3 +1,4 @@
+import { getLeadSmtpCredentials } from "@/lib/email/leadSmtpEnv";
 import { sendLeadNotification } from "@/lib/email/sendLeadNotification";
 
 /** Nodemailer + Gmail SMTP require Node (not Edge). */
@@ -7,36 +8,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_LEN = 4000;
-
-/** Gmail app passwords may include spaces; strip them. */
-function normalizeAppPassword(raw) {
-  return String(raw ?? "")
-    .replace(/^\uFEFF/, "")
-    .replace(/\s+/g, "");
-}
-
-/**
- * Read SMTP env at request time inside this file (reliable on Vercel; avoids some bundlers
- * stripping `process.env` from shared modules). Use bracket access for the same reason.
- *
- * Supported keys (first match wins):
- * - user: GMAIL_USER, SMTP_USER
- * - pass: GMAIL_APP_PASSWORD, SMTP_PASS, SMTP_PASSWORD
- * - to: LEAD_NOTIFY_EMAIL (else same as user)
- */
-function readLeadSmtpEnv() {
-  const user =
-    String(process.env["GMAIL_USER"] ?? process.env["SMTP_USER"] ?? "")
-      .trim() || "";
-  const pass = normalizeAppPassword(
-    process.env["GMAIL_APP_PASSWORD"] ??
-      process.env["SMTP_PASS"] ??
-      process.env["SMTP_PASSWORD"],
-  );
-  const to =
-    String(process.env["LEAD_NOTIFY_EMAIL"] ?? "").trim() || user || "";
-  return { user, pass, to };
-}
 
 function badRequest(message) {
   return Response.json({ ok: false, error: message }, { status: 400 });
@@ -70,7 +41,7 @@ export async function POST(request) {
     return badRequest("Invalid email address.");
   }
 
-  const smtp = readLeadSmtpEnv();
+  const smtp = getLeadSmtpCredentials();
   if (!smtp.user || !smtp.pass) {
     const isDev = process.env["NODE_ENV"] === "development";
     console.error("[api/lead] SMTP env missing", {
@@ -102,7 +73,6 @@ export async function POST(request) {
       email: email.trim(),
       message,
       bestTime,
-      smtp,
     });
   } catch (err) {
     const code = err && typeof err === "object" && "code" in err ? String(err.code) : "";

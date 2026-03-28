@@ -1,6 +1,8 @@
 import dns from "node:dns";
 import nodemailer from "nodemailer";
 
+import { getLeadSmtpCredentials } from "@/lib/email/leadSmtpEnv";
+
 function escapeHtml(s) {
   return String(s)
     .replaceAll("&", "&amp;")
@@ -11,7 +13,7 @@ function escapeHtml(s) {
 
 /**
  * Sends a notification email when someone requests a callback on the landing page.
- * Pass `smtp` from the API route so `process.env` is resolved in the serverless entry (reliable on Vercel).
+ * Reads Gmail credentials at send time via `getLeadSmtpCredentials()` (same helper as /api/lead).
  *
  * Uses port 587 + STARTTLS (often works on networks that block 465).
  * Forces IPv4 for smtp.gmail.com to avoid broken IPv6 routes timing out.
@@ -22,11 +24,8 @@ export async function sendLeadNotification({
   email,
   message,
   bestTime,
-  smtp,
 }) {
-  const user = smtp?.user;
-  const pass = smtp?.pass;
-  const to = smtp?.to;
+  const { user, pass, to } = getLeadSmtpCredentials();
 
   if (!user || !pass) {
     throw new Error("Email is not configured (missing GMAIL_USER or GMAIL_APP_PASSWORD).");
@@ -36,7 +35,7 @@ export async function sendLeadNotification({
   }
 
   /** Antivirus / corporate SSL inspection often injects a self-signed cert → ESOCKET "self-signed certificate in chain". Set GMAIL_TLS_INSECURE=1 only on trusted dev machines; never in production unless you understand the risk. */
-  const tlsInsecure = process.env.GMAIL_TLS_INSECURE === "1";
+  const tlsInsecure = process.env["GMAIL_TLS_INSECURE"] === "1";
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
