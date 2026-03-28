@@ -9,15 +9,9 @@ function escapeHtml(s) {
     .replaceAll('"', "&quot;");
 }
 
-function normalizeAppPassword(raw) {
-  return String(raw ?? "")
-    .replace(/^\uFEFF/, "")
-    .replace(/\s+/g, "");
-}
-
 /**
  * Sends a notification email when someone requests a callback on the landing page.
- * Requires GMAIL_USER + GMAIL_APP_PASSWORD in env (Gmail SMTP + App Password).
+ * Pass `smtp` from the API route so `process.env` is resolved in the serverless entry (reliable on Vercel).
  *
  * Uses port 587 + STARTTLS (often works on networks that block 465).
  * Forces IPv4 for smtp.gmail.com to avoid broken IPv6 routes timing out.
@@ -28,10 +22,11 @@ export async function sendLeadNotification({
   email,
   message,
   bestTime,
+  smtp,
 }) {
-  const user = process.env.GMAIL_USER?.trim();
-  const pass = normalizeAppPassword(process.env.GMAIL_APP_PASSWORD);
-  const to = process.env.LEAD_NOTIFY_EMAIL?.trim() || user;
+  const user = smtp?.user;
+  const pass = smtp?.pass;
+  const to = smtp?.to;
 
   if (!user || !pass) {
     throw new Error("Email is not configured (missing GMAIL_USER or GMAIL_APP_PASSWORD).");

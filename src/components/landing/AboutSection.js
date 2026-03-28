@@ -1,6 +1,6 @@
 import { LANDING_IMAGES } from "@/lib/landing-images";
 import Image from "next/image";
-import Link from "next/link";
+import HashLink from "./HashLink";
 
 const STATS = [
   { value: "800+", label: "Clients coached" },
@@ -78,18 +78,18 @@ export default function AboutSection() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <Link
-              href="#book"
+            <HashLink
+              href="#consult"
               className="inline-flex h-11 items-center justify-center rounded-full bg-[#0f0f0d] px-7 text-sm font-semibold text-white transition hover:bg-stone-800 active:scale-[0.98]"
             >
-              Book free consult
-            </Link>
-            <Link
+              Free consult
+            </HashLink>
+            <HashLink
               href="#programs"
               className="inline-flex h-11 items-center justify-center rounded-full border border-stone-300 px-7 text-sm font-medium text-[#0f0f0d] transition hover:border-stone-950"
             >
               View programs
-            </Link>
+            </HashLink>
           </div>
         </div>
       </div>

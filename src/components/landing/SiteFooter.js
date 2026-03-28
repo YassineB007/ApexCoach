@@ -1,3 +1,4 @@
+import HashLink from "./HashLink";
 import NewsletterForm from "./NewsletterForm";
 
 /**
@@ -51,12 +52,12 @@ export default function SiteFooter() {
                   ["#programs", "Programs"],
                   ["#results", "Results"],
                   ["#process", "Process"],
-                  ["#book", "Book"],
+                  ["#consult", "Free consult"],
                 ].map(([href, label]) => (
                   <li key={href}>
-                    <a href={href} className="transition-colors hover:text-white">
+                    <HashLink href={href} className="transition-colors hover:text-white">
                       {label}
-                    </a>
+                    </HashLink>
                   </li>
                 ))}
               </ul>

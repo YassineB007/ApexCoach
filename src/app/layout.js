@@ -17,7 +17,7 @@ export const metadata = {
     template: "%s | ApexCoach",
   },
   description:
-    "Lose 5–10kg in 90 days with structured training, nutrition, and accountability. Book a free consultation.",
+    "Lose 5–10kg in 90 days with structured training, nutrition, and accountability. Free consultation available.",
 };
 
 export default function RootLayout({ children }) {

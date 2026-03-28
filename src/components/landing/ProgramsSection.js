@@ -1,4 +1,4 @@
-import Link from "next/link";
+import HashLink from "./HashLink";
 
 /**
  * SUPABASE: replace `PROGRAMS` with `select * from programs where published = true order by sort_order`
@@ -108,12 +108,12 @@ export default function ProgramsSection() {
 
             <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-10">
               <p className="text-sm font-semibold text-white/55">{FEATURED.price}</p>
-              <Link
-                href="#book"
+              <HashLink
+                href="#consult"
                 className="inline-flex h-11 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-[#0f0f0d] transition hover:bg-stone-100 active:scale-[0.98]"
               >
                 {FEATURED.cta}
-              </Link>
+              </HashLink>
             </div>
           </div>
 
@@ -138,12 +138,12 @@ export default function ProgramsSection() {
 
                 <div className="mt-6 flex items-center justify-between border-t border-stone-100 pt-5">
                   <p className="text-sm font-semibold text-[#0f0f0d]">{p.price}</p>
-                  <Link
-                    href="#book"
+                  <HashLink
+                    href="#consult"
                     className="inline-flex h-9 items-center justify-center rounded-full border border-stone-200 px-5 text-xs font-semibold text-[#0f0f0d] transition hover:border-[#0f0f0d] hover:bg-[#0f0f0d] hover:text-white"
                   >
                     {p.cta}
-                  </Link>
+                  </HashLink>
                 </div>
               </div>
             ))}

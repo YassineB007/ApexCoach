@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import HashLink from "./HashLink";
 
 const nav = [
   { href: "#about", label: "About" },
   { href: "#programs", label: "Programs" },
   { href: "#results", label: "Results" },
   { href: "#process", label: "Process" },
-  { href: "#book", label: "Book" },
 ];
 
 export default function HeaderNav() {
@@ -46,7 +46,7 @@ export default function HeaderNav() {
 
         <nav className="hidden items-center gap-0.5 md:flex">
           {nav.map((item) => (
-            <Link
+            <HashLink
               key={item.href}
               href={item.href}
               className={`rounded-full px-3.5 py-2 text-sm transition-colors duration-200 ${
@@ -56,10 +56,10 @@ export default function HeaderNav() {
               }`}
             >
               {item.label}
-            </Link>
+            </HashLink>
           ))}
-          <Link
-            href="#book"
+          <HashLink
+            href="#consult"
             className={`ml-3 inline-flex h-9 items-center justify-center rounded-full px-5 text-sm font-semibold transition duration-200 active:scale-[0.97] ${
               scrolled
                 ? "bg-[#0f0f0d] text-white hover:bg-stone-800"
@@ -67,7 +67,7 @@ export default function HeaderNav() {
             }`}
           >
             Free consult
-          </Link>
+          </HashLink>
         </nav>
 
         <button
@@ -97,22 +97,22 @@ export default function HeaderNav() {
         <div className="border-t border-stone-100 bg-white/95 px-5 py-4 shadow-lg backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-0.5">
             {nav.map((item) => (
-              <Link
+              <HashLink
                 key={item.href}
                 href={item.href}
                 className="rounded-xl px-3 py-2.5 text-sm text-stone-700 hover:bg-stone-50 hover:text-stone-900"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
-              </Link>
+              </HashLink>
             ))}
-            <Link
-              href="#book"
+            <HashLink
+              href="#consult"
               className="mt-3 rounded-full bg-[#0f0f0d] py-3 text-center text-sm font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              Book free consultation
-            </Link>
+              Free consult
+            </HashLink>
           </div>
         </div>
       ) : null}

@@ -1,7 +1,11 @@
+import { readLeadSmtpEnv } from "@/lib/email/smtpEnv";
 import { sendLeadNotification } from "@/lib/email/sendLeadNotification";
 
 /** Nodemailer + Gmail SMTP require Node (not Edge). */
 export const runtime = "nodejs";
+
+/** Ensure env is read at request time (not statically optimized away). */
+export const dynamic = "force-dynamic";
 
 const MAX_LEN = 4000;
 
@@ -37,6 +41,14 @@ export async function POST(request) {
     return badRequest("Invalid email address.");
   }
 
+  const smtp = readLeadSmtpEnv();
+  if (!smtp.user || !smtp.pass) {
+    console.error("[api/lead] Missing SMTP env (check Vercel names + redeploy)", {
+      hasGMAIL_USER: Boolean(smtp.user),
+      hasGMAIL_APP_PASSWORD: Boolean(smtp.pass),
+    });
+  }
+
   try {
     await sendLeadNotification({
       fullName: fullName.trim(),
@@ -44,6 +56,7 @@ export async function POST(request) {
       email: email.trim(),
       message,
       bestTime,
+      smtp,
     });
   } catch (err) {
     const code = err && typeof err === "object" && "code" in err ? String(err.code) : "";

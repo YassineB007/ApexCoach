@@ -2,8 +2,8 @@
 
 import { LANDING_IMAGES } from "@/lib/landing-images";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
+import HashLink from "./HashLink";
 
 /**
  * SUPABASE: `site_assets.hero_image_url` overrides `LANDING_IMAGES.hero`
@@ -91,13 +91,13 @@ export default function HeroSection() {
             className="mt-8 flex flex-wrap items-center gap-3 animate-hero-rise"
             style={{ animationDelay: "240ms" }}
           >
-            <Link
-              href="#book"
+            <HashLink
+              href="#consult"
               className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-[#0f0f0d] shadow-xl shadow-[#0f0f0d]/20 transition duration-200 hover:bg-stone-100 active:scale-[0.98]"
             >
-              Book your free consultation
-            </Link>
-            <Link
+              Free consultation
+            </HashLink>
+            <HashLink
               href="#programs"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/20 px-6 text-sm font-medium text-white/75 transition duration-200 hover:border-white/40 hover:text-white"
             >
@@ -111,7 +111,7 @@ export default function HeroSection() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </HashLink>
           </div>
 
           <dl

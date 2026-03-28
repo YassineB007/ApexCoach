@@ -1,9 +1,9 @@
-import Link from "next/link";
+import HashLink from "./HashLink";
 
 const STEPS = [
   {
     n: "01",
-    title: "Book a free consult",
+    title: "Free consult",
     body: "We align on goals, schedule, and what \u201csuccess\u201d looks like in 90 days. No commitment required.",
     time: "30 min call",
   },
@@ -44,12 +44,12 @@ export default function HowItWorksSection() {
               Simple path from first call to first results.
             </h2>
           </div>
-          <Link
-            href="#book"
+          <HashLink
+            href="#consult"
             className="hidden sm:inline-flex h-11 items-center justify-center rounded-full bg-[#0f0f0d] px-7 text-sm font-semibold text-white transition hover:bg-stone-800 active:scale-[0.98]"
           >
             Start today
-          </Link>
+          </HashLink>
         </div>
 
         {/* Steps — cards with giant watermark numbers */}
@@ -81,12 +81,12 @@ export default function HowItWorksSection() {
 
         {/* Mobile CTA */}
         <div className="mt-10 flex sm:hidden">
-          <Link
-            href="#book"
+          <HashLink
+            href="#consult"
             className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#0f0f0d] text-sm font-semibold text-white transition hover:bg-stone-800"
           >
             Start today — free consult
-          </Link>
+          </HashLink>
         </div>
       </div>
     </section>

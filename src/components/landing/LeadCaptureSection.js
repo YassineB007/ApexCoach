@@ -51,20 +51,20 @@ export default function LeadCaptureSection() {
   }
 
   return (
-    <section id="book" className="scroll-mt-20 bg-[#0f0f0d] py-24 sm:py-32">
+    <section id="consult" className="scroll-mt-20 bg-[#0f0f0d] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-start lg:gap-24">
           {/* Left: heading + booking embed */}
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-500">
-              Booking
+              Free consult
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl">
               Ready to start?{" "}
               <span className="text-stone-500">Let's talk.</span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-stone-400">
-              Book a free 30-minute call or drop a message. We'll figure out
+              Schedule a free 30-minute call or send a message. We’ll figure out
               the best program for your goal and timeline.
             </p>
 
