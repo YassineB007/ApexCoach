@@ -51,9 +51,9 @@ export default function LeadCaptureSection() {
   }
 
   return (
-    <section id="consult" className="scroll-mt-20 bg-[#0f0f0d] py-24 sm:py-32">
+    <section id="consult" className="scroll-mt-20 bg-[#0f0f0d] py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-start lg:gap-24">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-24">
           {/* Left: heading + booking embed */}
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-500">
@@ -69,7 +69,7 @@ export default function LeadCaptureSection() {
             </p>
 
             {/* SUPABASE: render iframe from `site_settings.booking_embed_html` or provider URL */}
-            <div className="relative mt-8 flex min-h-[240px] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-stone-800 bg-stone-900 px-6 py-10 text-center">
+            <div className="relative mt-8 flex min-h-[200px] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-stone-800 bg-stone-900 px-4 py-8 text-center sm:min-h-[240px] sm:px-6 sm:py-10">
               <Image
                 src={LANDING_IMAGES.healthyMeal}
                 alt=""

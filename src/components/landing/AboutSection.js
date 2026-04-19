@@ -15,26 +15,9 @@ const STATS = [
 export default function AboutSection() {
   return (
     <section id="about" className="scroll-mt-20 overflow-hidden bg-[#f5f1eb]">
-      {/* Full-bleed editorial 2-col grid — image bleeds to the left edge */}
-      <div className="grid lg:grid-cols-2">
-        {/* Left: image fills the column with no outer padding */}
-        <div className="relative min-h-[480px] lg:min-h-[700px]">
-          {/* SUPABASE: `photo_url` replaces LANDING_IMAGES.coach */}
-          <Image
-            src={LANDING_IMAGES.coach}
-            alt="Coach portrait — replace with your photo"
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, (max-width: 1536px) 50vw, min(720px, 50vw)"
-            unoptimized
-            className="object-cover object-[center_22%]"
-          />
-          {/* Subtle right-edge fade to blend with section bg on desktop */}
-          <div className="absolute inset-y-0 right-0 hidden w-20 bg-gradient-to-l from-[#f5f1eb] to-transparent lg:block" />
-        </div>
-
-        {/* Right: copy */}
-        <div className="flex flex-col justify-center px-5 py-16 sm:px-10 lg:py-24 lg:pl-14 xl:pl-20 xl:pr-16">
+      {/* Mobile: copy first, then image. Desktop: image left, copy right. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="order-1 flex flex-col justify-center px-5 py-12 sm:px-10 sm:py-16 lg:order-2 lg:py-24 lg:pl-14 xl:pl-20 xl:pr-16">
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-400">
             About
           </p>
@@ -91,6 +74,19 @@ export default function AboutSection() {
               View programs
             </HashLink>
           </div>
+        </div>
+
+        <div className="relative order-2 aspect-[16/11] w-full sm:aspect-[16/10] lg:order-1 lg:aspect-auto lg:min-h-[min(100svh,720px)]">
+          <Image
+            src={LANDING_IMAGES.coach}
+            alt="Coach portrait — replace with your photo"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, (max-width: 1536px) 50vw, 720px"
+            unoptimized
+            className="object-cover object-center sm:object-[center_25%] lg:object-[center_22%]"
+          />
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-20 bg-gradient-to-l from-[#f5f1eb] to-transparent lg:block" />
         </div>
       </div>
 

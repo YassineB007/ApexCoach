@@ -65,7 +65,7 @@ export default function TestimonialsCarousel() {
   }, []);
 
   return (
-    <section id="results" className="scroll-mt-20 bg-[#f5f1eb] py-24 sm:py-32">
+    <section id="results" className="scroll-mt-20 bg-[#f5f1eb] py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -97,7 +97,7 @@ export default function TestimonialsCarousel() {
           {TESTIMONIALS.map((t, idx) => (
             <article
               key={idx}
-              className="flex flex-col rounded-2xl border border-stone-200 bg-white p-7 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-stone-950/5"
+              className="flex flex-col rounded-2xl border border-stone-200 bg-white p-5 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-stone-950/5 sm:p-7"
             >
               <Stars />
               <p className="mt-5 flex-1 text-[15px] leading-relaxed text-[#0f0f0d]">
@@ -118,34 +118,34 @@ export default function TestimonialsCarousel() {
           ))}
         </div>
 
-        {/* Before/after — portrait crop reads better for transformation shots */}
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6">
+        {/* Before/after — full width on small screens, two columns from sm */}
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6">
           {/* SUPABASE: before_image_url */}
-          <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-200 sm:aspect-[4/5]">
+          <figure className="relative aspect-[4/5] min-h-[220px] w-full overflow-hidden rounded-2xl bg-stone-200 sm:min-h-0 sm:aspect-[4/5]">
             <Image
               src={LANDING_IMAGES.testimonialBefore}
               alt="Before — wellness and movement (placeholder)"
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 560px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 45vw, 560px"
               unoptimized
-              className="object-cover object-[center_35%]"
+              className="object-cover object-center sm:object-[center_35%]"
             />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/80 to-transparent px-5 py-5">
+            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/85 to-transparent px-4 py-4 sm:px-5 sm:py-5">
               <p className="text-sm font-bold text-white">Before</p>
               <p className="text-[10px] text-white/50">Starting point — real client photos soon</p>
             </figcaption>
           </figure>
           {/* SUPABASE: after_image_url */}
-          <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-200 sm:aspect-[4/5]">
+          <figure className="relative aspect-[4/5] min-h-[220px] w-full overflow-hidden rounded-2xl bg-stone-200 sm:min-h-0 sm:aspect-[4/5]">
             <Image
               src={LANDING_IMAGES.testimonialAfter}
               alt="After — active, balanced lifestyle (placeholder)"
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 560px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 45vw, 560px"
               unoptimized
-              className="object-cover object-[center_45%]"
+              className="object-cover object-center sm:object-[center_45%]"
             />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/80 to-transparent px-5 py-5">
+            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/85 to-transparent px-4 py-4 sm:px-5 sm:py-5">
               <p className="text-sm font-bold text-white">After</p>
               <p className="text-[10px] text-white/50">Health-first habits that stick</p>
             </figcaption>

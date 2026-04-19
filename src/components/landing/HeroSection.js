@@ -36,7 +36,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[640px] max-h-[1080px] overflow-hidden">
+    <section className="relative min-h-[100svh] max-h-[1080px] overflow-hidden sm:min-h-[640px] sm:h-screen">
       {/* Background image with parallax */}
       <div
         ref={bgRef}
@@ -59,7 +59,7 @@ export default function HeroSection() {
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0f0f0d]/45 to-transparent" />
 
       {/* Bottom-anchored editorial content */}
-      <div className="absolute inset-x-0 bottom-0 px-5 pb-10 pt-24 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16">
+      <div className="absolute inset-x-0 bottom-0 px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:px-12 lg:pb-16">
         <div className="mx-auto max-w-7xl">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/50 animate-hero-rise"
@@ -69,10 +69,10 @@ export default function HeroSection() {
           </p>
 
           <h1
-            className="mt-5 max-w-[16ch] font-bold leading-[1.02] tracking-tight text-white animate-hero-rise"
+            className="mt-5 max-w-[18ch] font-bold leading-[1.05] tracking-tight text-white animate-hero-rise sm:max-w-[16ch] sm:leading-[1.02]"
             style={{
               animationDelay: "80ms",
-              fontSize: "clamp(2.6rem, 6vw, 5.25rem)",
+              fontSize: "clamp(1.85rem, 8vw, 5.25rem)",
             }}
           >
             Lose 5–10 kg in 90 days,{" "}
@@ -93,13 +93,13 @@ export default function HeroSection() {
           >
             <HashLink
               href="#consult"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-[#0f0f0d] shadow-xl shadow-[#0f0f0d]/20 transition duration-200 hover:bg-stone-100 active:scale-[0.98]"
+              className="inline-flex h-12 w-full min-w-0 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-[#0f0f0d] shadow-xl shadow-[#0f0f0d]/20 transition duration-200 hover:bg-stone-100 active:scale-[0.98] sm:w-auto sm:px-8"
             >
               Free consultation
             </HashLink>
             <HashLink
               href="#programs"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/20 px-6 text-sm font-medium text-white/75 transition duration-200 hover:border-white/40 hover:text-white"
+              className="inline-flex h-12 w-full min-w-0 items-center justify-center gap-2 rounded-full border border-white/20 px-6 text-sm font-medium text-white/75 transition duration-200 hover:border-white/40 hover:text-white sm:w-auto"
             >
               View programs
               <svg
@@ -115,7 +115,7 @@ export default function HeroSection() {
           </div>
 
           <dl
-            className="mt-10 grid grid-cols-2 gap-5 border-t border-white/12 pt-8 sm:grid-cols-4 animate-hero-rise"
+            className="mt-8 grid grid-cols-2 gap-x-3 gap-y-5 border-t border-white/12 pt-6 sm:mt-10 sm:grid-cols-4 sm:gap-5 sm:pt-8 animate-hero-rise"
             style={{ animationDelay: "320ms" }}
           >
             {[

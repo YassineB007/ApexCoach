@@ -19,7 +19,7 @@ export default function Reveal({ children, className = "", delayMs = 0 }) {
       return () => window.clearTimeout(t);
     }
 
-    // Trigger a bit earlier so sections don’t feel empty while scrolling
+    // Generous root margin so content isn’t stuck invisible on short viewports / mobile
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -27,7 +27,7 @@ export default function Reveal({ children, className = "", delayMs = 0 }) {
           obs.disconnect();
         }
       },
-      { rootMargin: "0px 0px -2% 0px", threshold: 0.04 },
+      { rootMargin: "120px 0px 80px 0px", threshold: 0.01 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -39,8 +39,10 @@ export default function Reveal({ children, className = "", delayMs = 0 }) {
       className={className}
       style={{
         opacity: visible ? undefined : 0,
-        transform: visible ? undefined : "translate3d(0, 28px, 0)",
-        transition: visible ? `opacity 0.75s cubic-bezier(0.16,1,0.3,1) ${delayMs}ms, transform 0.75s cubic-bezier(0.16,1,0.3,1) ${delayMs}ms` : undefined,
+        transform: visible ? undefined : "translate3d(0, 10px, 0)",
+        transition: visible
+          ? `opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delayMs}ms, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delayMs}ms`
+          : undefined,
       }}
     >
       {children}

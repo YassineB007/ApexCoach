@@ -29,6 +29,34 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Softer rhythm between stacked sections (Reveal wrappers) */
+.section-reveal {
+  position: relative;
+}
+
+main > .section-reveal ~ .section-reveal::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 48px;
+  margin-top: -24px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0) 0%,
+    rgb(15 15 13 / 0.03) 45%,
+    rgb(255 255 255 / 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > .section-reveal ~ .section-reveal::before {
+    display: none;
+  }
+}
+
 /* Hero entrance — staggered per element via animationDelay inline style */
 @keyframes hero-rise {
   from {

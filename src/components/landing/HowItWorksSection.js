@@ -32,7 +32,7 @@ const STEPS = [
  */
 export default function HowItWorksSection() {
   return (
-    <section id="process" className="scroll-mt-20 bg-white py-24 sm:py-32">
+    <section id="process" className="scroll-mt-20 bg-white py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

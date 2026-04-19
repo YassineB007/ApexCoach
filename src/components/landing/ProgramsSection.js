@@ -65,7 +65,7 @@ function CheckIcon({ className = "" }) {
 
 export default function ProgramsSection() {
   return (
-    <section id="programs" className="scroll-mt-20 bg-white py-24 sm:py-32">
+    <section id="programs" className="scroll-mt-20 bg-white py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -86,7 +86,7 @@ export default function ProgramsSection() {
         {/* Asymmetric bento: featured (large) left + two stacked right */}
         <div className="mt-12 grid gap-4 lg:grid-cols-[1.7fr_1fr]">
           {/* Featured — dark, full feature list */}
-          <div className="flex flex-col rounded-2xl bg-[#0f0f0d] p-8 sm:p-10 lg:p-12">
+          <div className="flex flex-col rounded-2xl bg-[#0f0f0d] p-6 sm:p-10 lg:p-12">
             <div className="flex items-center justify-between gap-4">
               <span className="inline-flex rounded-full border border-white/15 px-3 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white/45">
                 Most popular

@@ -24,19 +24,19 @@ export default function LandingPage() {
       <HeaderNav />
       <main className="flex-1">
         <HeroSection />
-        <Reveal>
+        <Reveal className="section-reveal">
           <AboutSection />
         </Reveal>
-        <Reveal delayMs={60}>
+        <Reveal delayMs={40} className="section-reveal">
           <ProgramsSection />
         </Reveal>
-        <Reveal delayMs={40}>
+        <Reveal delayMs={40} className="section-reveal">
           <TestimonialsCarousel />
         </Reveal>
-        <Reveal delayMs={60}>
+        <Reveal delayMs={40} className="section-reveal">
           <HowItWorksSection />
         </Reveal>
-        <Reveal delayMs={40}>
+        <Reveal delayMs={40} className="section-reveal">
           <LeadCaptureSection />
         </Reveal>
       </main>

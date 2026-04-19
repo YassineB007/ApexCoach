@@ -44,16 +44,22 @@ export async function POST(request) {
   const smtp = getLeadSmtpCredentials();
   if (!smtp.user || !smtp.pass) {
     const isDev = process.env["NODE_ENV"] === "development";
-    console.error("[api/lead] SMTP env missing", {
-      hasUser: Boolean(smtp.user),
-      hasPass: Boolean(smtp.pass),
-      checkedKeys: {
-        GMAIL_USER: Boolean(process.env["GMAIL_USER"]),
-        GMAIL_APP_PASSWORD: Boolean(process.env["GMAIL_APP_PASSWORD"]),
-        SMTP_USER: Boolean(process.env["SMTP_USER"]),
-        SMTP_PASS: Boolean(process.env["SMTP_PASS"]),
+    console.error(
+      "[api/lead] Gmail credentials missing — set GMAIL_USER + GMAIL_APP_PASSWORD (SMTP_* is optional, not required)",
+      {
+        hasUser: Boolean(smtp.user),
+        hasPass: Boolean(smtp.pass),
+        vercel: process.env["VERCEL"] === "1",
+        primaryKeysSet: {
+          GMAIL_USER: Boolean(process.env["GMAIL_USER"]),
+          GMAIL_APP_PASSWORD: Boolean(process.env["GMAIL_APP_PASSWORD"]),
+        },
+        optionalAliasesSet: {
+          SMTP_USER: Boolean(process.env["SMTP_USER"]),
+          SMTP_PASS: Boolean(process.env["SMTP_PASS"]),
+        },
       },
-    });
+    );
     return Response.json(
       {
         ok: false,
